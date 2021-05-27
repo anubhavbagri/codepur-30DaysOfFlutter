@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'pages/login_page.dart';
 import 'pages/home_page.dart';
 
@@ -11,16 +12,16 @@ class MyApp extends StatelessWidget {
   // const MyApp({Key? key}) : super(key: key)
   @override
   Widget build(BuildContext context) {
-    // bringVegetables(rupees: 50);
-    // bringVegetables(thaila: true);
     return MaterialApp(
       // home: HomePage(),
       themeMode: ThemeMode.light,
-      // themeMode: ThemeMode.dark,
-      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      theme: ThemeData(
+        primarySwatch: Colors.indigo,
+        fontFamily: GoogleFonts.inter().fontFamily,
+      ),
       darkTheme:
           ThemeData(brightness: Brightness.dark, primarySwatch: Colors.red),
-      initialRoute: "/home",
+      initialRoute: "/",
       routes: {
         "/": (context) => LoginPage(),
         "/home": (context) => HomePage(),
@@ -28,13 +29,4 @@ class MyApp extends StatelessWidget {
       },
     );
   }
-
-  //default value of rupees is 100 and thaila is false
-  // bringVegetables({
-  //   @required bool? thaila, //supplying thaila's value is compulsory
-  //   int rupees = 100,
-  // }) {
-  //   // Take cycle
-  //   //Go to Sec 16 market
-  // }
 }
