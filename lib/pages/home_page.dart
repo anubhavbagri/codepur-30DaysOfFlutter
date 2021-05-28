@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/models/catalogue.dart';
 import 'package:flutter_application_1/widgets/drawer.dart';
-
-
-//DAY 11 - WE LEARNT ABOUT BUILD CONTEXT, CONSTRAINTS, TREE STRUCTURE
+import 'package:flutter_application_1/widgets/item_widget.dart';
 
 // ignore: use_key_in_widget_constructors
 class HomePage extends StatelessWidget {
@@ -11,16 +10,24 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dummyList = List.generate(20, (index) => CatalogueModel.items[0]);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Catalogue App",
         ),
       ),
-      body: Center(
-        child: SizedBox(
-          //string interpolation
-          child: Text(context.runtimeType.toString()),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView.builder(
+          // itemCount: CatalogueModel.items.length,
+          itemCount: dummyList.length,
+          itemBuilder: (context, index) {
+            return ItemWidget(
+              item: dummyList[index],
+            );
+          },
         ),
       ),
       drawer: MyDrawer(),
