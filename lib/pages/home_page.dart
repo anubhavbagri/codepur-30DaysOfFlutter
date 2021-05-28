@@ -30,16 +30,19 @@ class _HomePageState extends State<HomePage> {
     //decoding json string into another format(map)
     final decodedData = jsonDecode(catalogueJson);
     // print(decodedData);
+    // if we have a map and we want to convert it to string -> jsonEncode()
 
     var productsData = decodedData["products"];
     // print(productsData);
-    // if we have a map and we want to convert it to string -> jsonEncode()
+
+    CatalogueModel.items = List.from(productsData)
+        .map<Item>((item) => Item.fromMap(item))
+        .toList();
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    final dummyList = List.generate(20, (index) => CatalogueModel.items[0]);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -50,10 +53,10 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(16.0),
         child: ListView.builder(
           // itemCount: CatalogueModel.items.length,
-          itemCount: dummyList.length,
+          itemCount: CatalogueModel.items.length,
           itemBuilder: (context, index) {
             return ItemWidget(
-              item: dummyList[index],
+              item: CatalogueModel.items[index],
             );
           },
         ),
