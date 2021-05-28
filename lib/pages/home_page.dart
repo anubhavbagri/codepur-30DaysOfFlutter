@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/widgets/drawer.dart';
 
+
+//DAY 11 - WE LEARNT ABOUT BUILD CONTEXT, CONSTRAINTS, TREE STRUCTURE
+
 // ignore: use_key_in_widget_constructors
 class HomePage extends StatelessWidget {
   final int days = 30;
@@ -17,7 +20,7 @@ class HomePage extends StatelessWidget {
       body: Center(
         child: SizedBox(
           //string interpolation
-          child: Text("Welcome to $days Days of Flutter by " + name),
+          child: Text(context.runtimeType.toString()),
         ),
       ),
       drawer: MyDrawer(),
