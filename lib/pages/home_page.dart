@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   loadData() async {
+    await Future.delayed(Duration(seconds: 2));
     final catalogueJson =
         await rootBundle.loadString("assets/files/catalogue.json");
     // print(catalogueJson);
@@ -51,15 +52,20 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-          // itemCount: CatalogueModel.items.length,
-          itemCount: CatalogueModel.items.length,
-          itemBuilder: (context, index) {
-            return ItemWidget(
-              item: CatalogueModel.items[index],
-            );
-          },
-        ),
+        child:
+            (CatalogueModel.items != null && CatalogueModel.items!.isNotEmpty)
+                ? ListView.builder(
+                    // itemCount: CatalogueModel.items.length,
+                    itemCount: CatalogueModel.items?.length,
+                    itemBuilder: (context, index) {
+                      return ItemWidget(
+                        item: CatalogueModel.items![index],
+                      );
+                    },
+                  )
+                : Center(
+                    child: CircularProgressIndicator(),
+                  ),
       ),
       drawer: MyDrawer(),
     );
