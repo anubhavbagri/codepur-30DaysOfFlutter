@@ -37,4 +37,13 @@ class Item {
       image: map["image"],
     );
   }
+
+  toMap() => {
+        "id": id,
+        "name": name,
+        "desc": desc,
+        "price": price,
+        "color": color,
+        "image": image,
+      };
 }
