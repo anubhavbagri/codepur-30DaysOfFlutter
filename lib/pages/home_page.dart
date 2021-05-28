@@ -12,9 +12,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Catalogue App",
-          // style: TextStyle(color: Colors.black),
         ),
-        // leading: Text("Catalogue App"),
       ),
       body: Center(
         child: SizedBox(
@@ -22,8 +20,6 @@ class HomePage extends StatelessWidget {
           child: Text("Welcome to $days Days of Flutter by " + name),
         ),
       ),
-      // bottomSheet: BottomSheet(),
-      // bottomNavigationBar: BottomNavigationBar(items: items),
       drawer: MyDrawer(),
     );
   }
