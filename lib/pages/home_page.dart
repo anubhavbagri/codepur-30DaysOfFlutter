@@ -26,16 +26,8 @@ class _HomePageState extends State<HomePage> {
     await Future.delayed(Duration(seconds: 2));
     final catalogueJson =
         await rootBundle.loadString("assets/files/catalogue.json");
-    // print(catalogueJson);
-
-    //decoding json string into another format(map)
     final decodedData = jsonDecode(catalogueJson);
-    // print(decodedData);
-    // if we have a map and we want to convert it to string -> jsonEncode()
-
     var productsData = decodedData["products"];
-    // print(productsData);
-
     CatalogueModel.items = List.from(productsData)
         .map<Item>((item) => Item.fromMap(item))
         .toList();
@@ -54,12 +46,45 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(16.0),
         child:
             (CatalogueModel.items != null && CatalogueModel.items!.isNotEmpty)
-                ? ListView.builder(
-                    // itemCount: CatalogueModel.items.length,
-                    itemCount: CatalogueModel.items?.length,
-                    itemBuilder: (context, index) => ItemWidget(
-                      item: CatalogueModel.items![index],
+                ? GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 16,
+                      crossAxisSpacing: 16,
                     ),
+                    itemBuilder: (context, index) {
+                      final item = CatalogueModel.items![index];
+                      return Card(
+                          clipBehavior: Clip.antiAlias,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: GridTile(
+                            header: Container(
+                              child: Text(
+                                item.name,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: Colors.indigo,
+                              ),
+                            ),
+                            child: Image.network(
+                              item.image,
+                            ),
+                            footer: Container(
+                              child: Text(
+                                item.price.toString(),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                              ),
+                            ),
+                          ));
+                    },
+                    itemCount: CatalogueModel.items?.length,
                   )
                 : Center(
                     child: CircularProgressIndicator(),
