@@ -37,9 +37,7 @@ class CatalogueItem extends StatelessWidget {
         children: [
           Hero(
             tag: Key(catalogue.id.toString()),
-            child: CatalogueImage(
-              image: catalogue.image
-              ),
+            child: CatalogueImage(image: catalogue.image),
           ),
           Expanded(
               child: Column(
@@ -61,7 +59,7 @@ class CatalogueItem extends StatelessWidget {
                             MaterialStateProperty.all(MyTheme.blueish),
                         shape: MaterialStateProperty.all(StadiumBorder()),
                       ),
-                      child: "Buy".text.make())
+                      child: "Add".text.make())
                 ],
               ).pOnly(right: 8.0)
             ],
