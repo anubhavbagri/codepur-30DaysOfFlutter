@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/catalogue.dart';
 import 'package:flutter_application_1/pages/home_details_page.dart';
-import 'package:flutter_application_1/widgets/themes.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'catalogue_image.dart';
 
@@ -12,12 +11,14 @@ class CatalogueList extends StatelessWidget {
       shrinkWrap: true,
       itemCount: CatalogueModel.items?.length,
       itemBuilder: (context, index) {
-        final catalogue = CatalogueModel.items![index];
+        final catalogue = CatalogueModel.getByPosition(index);
         return InkWell(
             onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomeDetailPage(catalogue: catalogue),
+                    builder: (context) => HomeDetailPage(
+                      catalogue: catalogue,
+                    ),
                   ),
                 ),
             child: CatalogueItem(catalogue: catalogue));

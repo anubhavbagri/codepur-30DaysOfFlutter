@@ -25,10 +25,13 @@ class MyTheme {
         buttonColor: lightblueish,
         accentColor: Colors.white,
         appBarTheme: AppBarTheme(
-          color: Colors.black,
+          // color: Colors.black,
           elevation: 0.0,
           iconTheme: IconThemeData(color: Colors.white),
-          textTheme: Theme.of(context).textTheme,
+          textTheme: Theme.of(context).textTheme.copyWith(
+                headline6:
+                    context.textTheme.headline6?.copyWith(color: Colors.white),
+              ),
         ),
       );
 
