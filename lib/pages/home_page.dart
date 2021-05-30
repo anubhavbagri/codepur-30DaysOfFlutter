@@ -9,6 +9,7 @@ import 'package:flutter_application_1/widgets/home_widgets/catalogue_header.dart
 import 'package:flutter_application_1/widgets/home_widgets/catalogue_list.dart';
 import 'package:flutter_application_1/widgets/themes.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:http/http.dart' as http;
 
 // ignore: use_key_in_widget_constructors
 class HomePage extends StatefulWidget {
@@ -21,6 +22,8 @@ class _HomePageState extends State<HomePage> {
 
   final String name = "Anubhav";
 
+  final url = "https://api.jsonbin.io/b/604dbddb683e7e079c4eefd3";
+
   @override
   void initState() {
     super.initState();
@@ -29,8 +32,12 @@ class _HomePageState extends State<HomePage> {
 
   loadData() async {
     await Future.delayed(Duration(seconds: 2));
-    final catalogueJson =
-        await rootBundle.loadString("assets/files/catalogue.json");
+    // final catalogueJson =
+    //     await rootBundle.loadString("assets/files/catalogue.json");
+
+    final response = await http.get(Uri.parse(url));
+    final catalogueJson = response.body;
+
     final decodedData = jsonDecode(catalogueJson);
     var productsData = decodedData["products"];
     CatalogueModel.items = List.from(productsData)
@@ -55,7 +62,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.white,
             ),
           ).badge(
-              color: Vx.red400,
+              color: Vx.gray300,
               size: 20,
               count: _cart.items.length,
               textStyle: TextStyle(
