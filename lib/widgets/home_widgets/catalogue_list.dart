@@ -8,23 +8,43 @@ import 'catalogue_image.dart';
 class CatalogueList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: CatalogueModel.items?.length,
-      itemBuilder: (context, index) {
-        final catalogue = CatalogueModel.items![index];
-        return InkWell(
-            onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomeDetailPage(
-                      catalogue: catalogue,
-                    ),
-                  ),
-                ),
-            child: CatalogueItem(catalogue: catalogue));
-      },
-    );
+    return !context.isMobile
+        ? GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, crossAxisSpacing: 20.0),
+            shrinkWrap: true,
+            itemCount: CatalogueModel.items?.length,
+            itemBuilder: (context, index) {
+              final catalogue = CatalogueModel.items![index];
+              return InkWell(
+                  onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeDetailPage(
+                            catalogue: catalogue,
+                          ),
+                        ),
+                      ),
+                  child: CatalogueItem(catalogue: catalogue));
+            },
+          )
+        : ListView.builder(
+            shrinkWrap: true,
+            itemCount: CatalogueModel.items?.length,
+            itemBuilder: (context, index) {
+              final catalogue = CatalogueModel.items![index];
+              return InkWell(
+                  onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeDetailPage(
+                            catalogue: catalogue,
+                          ),
+                        ),
+                      ),
+                  child: CatalogueItem(catalogue: catalogue));
+            },
+          );
   }
 }
 
@@ -34,36 +54,41 @@ class CatalogueItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return VxBox(
-      child: Row(
-        children: [
-          Hero(
-            tag: Key(catalogue.id.toString()),
-            child: CatalogueImage(image: catalogue.image),
-          ),
-          Expanded(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              catalogue.name.text.lg
-                  .color(context.theme.accentColor)
-                  .bold
-                  .make(),
-              catalogue.desc.text.textStyle(context.captionStyle!).make(),
-              10.heightBox,
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceBetween,
-                buttonPadding: EdgeInsets.zero,
-                children: [
-                  "\$${catalogue.price}".text.bold.xl.make(),
-                  AddToCart(catalogue: catalogue),
-                ],
-              ).pOnly(right: 8.0)
-            ],
-          ))
-        ],
+    var children2 = [
+      Hero(
+        tag: Key(catalogue.id.toString()),
+        child: CatalogueImage(
+          image: catalogue.image,
+        ),
       ),
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            catalogue.name.text.lg.color(context.theme.accentColor).bold.make(),
+            catalogue.desc.text.textStyle(context.captionStyle!).make(),
+            10.heightBox,
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              buttonPadding: EdgeInsets.zero,
+              children: [
+                "\$${catalogue.price}".text.bold.xl.make(),
+                AddToCart(catalogue: catalogue),
+              ],
+            ).pOnly(right: 8.0)
+          ],
+        ).p(context.isMobile ? 4 : 16),
+      )
+    ];
+    return VxBox(
+      child: context.isMobile
+          ? Row(
+              children: children2,
+            )
+          : Column(
+              children: children2,
+            ),
     ).color(context.cardColor).rounded.square(150).make().p16();
   }
 }
