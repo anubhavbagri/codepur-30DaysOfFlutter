@@ -3,12 +3,13 @@ import 'package:flutter_application_1/models/cart.dart';
 import 'package:flutter_application_1/models/catalogue.dart';
 
 class MyStore extends VxStore {
-  CatalogueModel catalogue;
-  CartModel cart;
-
-  MyStore{
+  CatalogueModel catalogue = CatalogueModel();
+  CartModel cart = CartModel();
+  MyStore() {
     catalogue = CatalogueModel();
     cart = CartModel();
     cart.catalogue = catalogue;
   }
 }
+
+  // MyStore store = VxState.store;
