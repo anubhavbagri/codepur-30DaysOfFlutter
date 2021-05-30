@@ -6,7 +6,6 @@ import 'package:flutter_application_1/models/catalogue.dart';
 import 'package:flutter_application_1/utils/routes.dart';
 import 'package:flutter_application_1/widgets/home_widgets/catalogue_header.dart';
 import 'package:flutter_application_1/widgets/home_widgets/catalogue_list.dart';
-import 'package:flutter_application_1/widgets/themes.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 // ignore: use_key_in_widget_constructors
